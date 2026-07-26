@@ -44,6 +44,5 @@
       "dest": "/api/index.php"
     }
   ],
-  "outputDirectory": "public",
-  "php": "8.2"
+  "outputDirectory": "public"
 }
