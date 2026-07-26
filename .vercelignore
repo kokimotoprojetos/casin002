@@ -1,9 +1,9 @@
 node_modules
 .git
 .vercel
+/vendor
 tests
 phpunit.xml
 .jsconfig.json
 postcss.config.js
 tailwind.config.js
-vite.config.js
