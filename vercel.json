@@ -4,6 +4,7 @@
       "runtime": "vercel-php@0.6.2"
     }
   },
+  "buildCommand": "echo 'Build not needed, assets already compiled'",
   "routes": [
     {
       "src": "/build/(.*)",
