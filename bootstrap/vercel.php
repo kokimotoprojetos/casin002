@@ -4,7 +4,7 @@ $app = require __DIR__ . '/app.php';
 
 $storagePath = $_ENV['APP_BASE_PATH'] ?? __DIR__ . '/../storage';
 
-$isVercel = isset($_ENV['VERCEL']) || isset($_SERVER['VERCEL']);
+$isVercel = isset($_ENV['VERCEL']) || isset($_SERVER['VERCEL']) || getenv('VERCEL') !== false || getenv('VERCEL_URL') !== false;
 if ($isVercel) {
     $storagePath = '/tmp/storage';
     $dirs = [
@@ -24,6 +24,13 @@ if ($isVercel) {
             mkdir($dir, 0755, true);
         }
     }
+    $modulesFile = '/tmp/storage/modules_statuses.json';
+    if (!file_exists($modulesFile) && file_exists(__DIR__ . '/../modules_statuses.json')) {
+        @copy(__DIR__ . '/../modules_statuses.json', $modulesFile);
+    }
+    $_ENV['MODULES_STATUSES_PATH'] = $modulesFile;
+    $_SERVER['MODULES_STATUSES_PATH'] = $modulesFile;
+    putenv("MODULES_STATUSES_PATH={$modulesFile}");
 }
 
 $app->useStoragePath($storagePath);
